@@ -26,23 +26,21 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="19" pref="19" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="ckbx_power" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel4" min="-2" pref="133" max="-2" attributes="0"/>
-                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                      <Component id="chkbx_infantIn" min="-2" max="-2" attributes="0"/>
-                      <Component id="ckbx_power" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="chkbx_infantIn" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="23" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jPanel1" max="32767" attributes="0"/>
-                  <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jPanel4" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -62,7 +60,7 @@
               <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -102,9 +100,9 @@
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jPanel3" alignment="0" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="18" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -153,20 +151,13 @@
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="spnr_minTemp" max="32767" attributes="0"/>
-                                          <Component id="jSpinner2" min="-2" pref="117" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="chkbx_minTempValid" min="-2" max="-2" attributes="0"/>
-                                          <Component id="chkbx_maxTempValid" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="spnr_minTemp" max="32767" attributes="0"/>
+                                      <Component id="jSpinner2" min="-2" pref="117" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="lbl_regStatus" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="20" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -177,7 +168,6 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="chkbx_minTempValid" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="spnr_minTemp" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -185,7 +175,6 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="spnr_maxTemp" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jSpinner2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="chkbx_maxTempValid" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -206,16 +195,6 @@
             <Component class="javax.swing.JSpinner" name="spnr_minTemp">
             </Component>
             <Component class="javax.swing.JSpinner" name="jSpinner2">
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkbx_minTempValid">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Valid?"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkbx_maxTempValid">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Valid?"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
@@ -269,23 +248,16 @@
                           <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="spnr_minAlarmTemp" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="spnr_maxAlarmTemp" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="chkbx_minAlarmTempValid" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="chkbx_maxAlarmTempValid" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="spnr_maxAlarmTemp" min="-2" pref="117" max="-2" attributes="0"/>
+                              <Component id="spnr_minAlarmTemp" min="-2" pref="117" max="-2" attributes="0"/>
                           </Group>
                           <Component id="lbl_MonitorStatus" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lbl_alarm" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -294,7 +266,6 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="chkbx_minAlarmTempValid" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="spnr_minAlarmTemp" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -302,7 +273,6 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="spnr_maxAlarmTemp" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="chkbx_maxAlarmTempValid" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -320,11 +290,6 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JCheckBox" name="chkbx_minAlarmTempValid">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Valid?"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JLabel" name="lbl_MonitorStatus">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Init"/>
@@ -334,17 +299,11 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Alarm:"/>
               </Properties>
-              <AccessibilityProperties>
-                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Alarm:"/>
-              </AccessibilityProperties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel12">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Maximum Alarm Temperature (&#x25e6;F)"/>
               </Properties>
-              <AccessibilityProperties>
-                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Maximum Alarm Temperature (&#x25e6;F)"/>
-              </AccessibilityProperties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel13">
               <Properties>
@@ -357,16 +316,8 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Minimum Alarm Temperature (&#x25e6;F)"/>
               </Properties>
-              <AccessibilityProperties>
-                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Minimum Alarm Temperature (&#x25e6;F)"/>
-              </AccessibilityProperties>
             </Component>
             <Component class="javax.swing.JSpinner" name="spnr_minAlarmTemp">
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="chkbx_maxAlarmTempValid">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Valid?"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbl_alarm">
               <Properties>
@@ -422,7 +373,7 @@
                   <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
                   <Component id="lbl_feltTemp" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="113" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
