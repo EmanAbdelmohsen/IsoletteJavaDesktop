@@ -15,7 +15,7 @@ public abstract class ThermostatFunction {
 	
 	public ThermostatFunction(int minTemp, int maxTemp) {
 		mode = new ManageMode();//Instantiates a manage mode instance for either Thermostat functions
-		status = StatusEnum.INIT;
+		status = mode.getStatus();
 		controller = false;
 		setMinTemp(minTemp);
 		setMaxTemp(maxTemp);

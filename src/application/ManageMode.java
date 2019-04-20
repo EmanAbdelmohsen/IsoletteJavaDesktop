@@ -27,16 +27,19 @@ public class ManageMode {
 		switch(getStatus()) {
 			case INIT:
 				elapsedRoundsForTimeout += Constants.ROUND;
-				boolean status = elapsedRoundsForTimeout > 1.0 || (interfaceFailure && internalFailure);
-				setStatus(status ? StatusEnum.FAILED : StatusEnum.NORMAL);
-				break;
-			case NORMAL:
-				if (interfaceFailure && internalFailure) {
-					setStatus(StatusEnum.FAILED);
+				if (!interfaceFailure && !internalFailure && temperature != 0) {
+					setStatus(StatusEnum.NORMAL);
+					elapsedRoundsForTimeout = 0;
+				}
+				
+				if (elapsedRoundsForTimeout > 1.0) {;
+					setStatus(StatusEnum.FAILED);;
 				}
 				break;
-			case FAILED:
-				//Do nothing
+			case NORMAL:
+				if (interfaceFailure || internalFailure || temperature == 0 ) {
+					setStatus(StatusEnum.FAILED);
+				}
 				break;
 			default:
 				//Do nothing

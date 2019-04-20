@@ -17,10 +17,8 @@ public class ManageInterface {
 	private int[] tempRange;//tempRange.length == 2 and tempRange[0] reps the lower value, tempRange[1] reps the upper value.
 	private boolean tempRangeChanged;//To indicate a temperature range change after the initial set
 
-	public ManageInterface(int[] tempRange) {
+	public ManageInterface() {
 		this.setStatus(StatusEnum.INIT);
-		this.setTempRange(tempRange);
-		this.setTempRangeChanged(false);
 	}
 	/**
 	 * Implements requirements MRI-1 & MMI-1
@@ -43,7 +41,7 @@ public class ManageInterface {
 			return Arrays.stream(tempRange).anyMatch(v -> v == 0);
 		}
 		
-		return false;
+		return true;
 	}
 	
 	/**

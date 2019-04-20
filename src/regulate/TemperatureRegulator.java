@@ -12,9 +12,13 @@ public class TemperatureRegulator extends ThermostatFunction{
 	public TemperatureRegulator(int minTemp, int maxTemp) {
 		super(minTemp, maxTemp);
 		failure = new RegulatorFailure();
-		int[] tempRange = {minTemp, maxTemp};
-		regulatorInterface = new ManageRegulatorInterface(tempRange);
+		regulatorInterface = new ManageRegulatorInterface();
 		manageHeatSource = new ManageHeatSource();
+	}
+	
+	public void setRegulatorInterfaceTempRange(int minTemp, int maxTemp) {
+		int[] tempRange = {minTemp, maxTemp};
+		regulatorInterface.setTempRange(tempRange);
 	}
 	
 	//Broken out execution of a round for timeout testing.
@@ -27,12 +31,20 @@ public class TemperatureRegulator extends ThermostatFunction{
 	@Override
 	public StatusEnum executeRound(double temperature) {
 		boolean internalFailureReceived = failure.selfCheck();//DRF
-		boolean interFaceFailureReceived = regulatorInterface.getInterfaceFailure();//MRI-3
+		boolean interFaceFailureReceived = getRegulatorInterfaceFailure();
 		StatusEnum modeResult = mode.executeRound(internalFailureReceived, interFaceFailureReceived, temperature);//MRM
+		regulatorInterface.setStatus(modeResult);
+		regulatorInterface.setTemperature(temperature);
 		int[] desiredRange = regulatorInterface.getDesiredTempRange();//MRI-4
 		this.setController(manageHeatSource.executeRound(modeResult, temperature, desiredRange));//MHS
 		this.setStatus(regulatorInterface.getStatus());//MRI-1
 		return regulatorInterface.getStatus();
+	}
+
+	private boolean getRegulatorInterfaceFailure() {
+		int[] tempRange = {this.getMinTemp(), this.getMaxTemp()};
+		regulatorInterface.setTempRange(tempRange);
+		return regulatorInterface.getInterfaceFailure();//MRI-3
 	}
 	
 	/**
@@ -40,12 +52,8 @@ public class TemperatureRegulator extends ThermostatFunction{
 	 * from the Temperature Sensor component
 	 * @param temperature
 	 */
-	public int getDisplayTemperature(double temperature) {
+	public int getDisplayTemperature() {
 		return regulatorInterface.getDisplayTemp();//MRI-2
-	}
-	
-	public boolean getHeatControl() {
-		return getController();
 	}
 	
 }

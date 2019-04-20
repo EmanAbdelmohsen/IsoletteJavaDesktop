@@ -11,10 +11,6 @@ import monitor.ManageInterface;
 
 public class ManageRegulatorInterface extends ManageInterface{
 	
-	public ManageRegulatorInterface(int[] tempRange) {
-		super(tempRange);
-	}
-	
 	/**
 	 * Implements requirement MRI-2
 	 * @return

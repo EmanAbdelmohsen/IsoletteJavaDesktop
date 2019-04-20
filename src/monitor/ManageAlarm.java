@@ -13,10 +13,6 @@ import application.Constants.StatusEnum;
 public class ManageAlarm implements ManageControlInterface {
 	private boolean alarmed;
 	
-	public ManageAlarm() {
-		alarmed = false;
-	}
-
 	@Override
 	public boolean executeRound(StatusEnum mode, double temperature, int[] desiredRange) {
 		switch(mode) {
@@ -24,11 +20,11 @@ public class ManageAlarm implements ManageControlInterface {
 			setAlarmed(false);
 			break;
 		case NORMAL:
-			if (alarmed && ((temperature - Constants.HYSTERESIS_CONSTANT) > desiredRange[0])
-					&& temperature < desiredRange[1]) {
+			if (!alarmed && !(temperature < desiredRange[0])
+					&& !(temperature > desiredRange[1])) {
 				setAlarmed(false);
-			}else if(alarmed && ((temperature + Constants.HYSTERESIS_CONSTANT) < desiredRange[1])
-					&& temperature > desiredRange[0]) {
+			}else if(alarmed && (!((temperature + Constants.HYSTERESIS_CONSTANT) > desiredRange[1]))
+					&& !(temperature  - Constants.HYSTERESIS_CONSTANT < desiredRange[0])) {
 				setAlarmed(false);
 			}else {
 				setAlarmed(true);

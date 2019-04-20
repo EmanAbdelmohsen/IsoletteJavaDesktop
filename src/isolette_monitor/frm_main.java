@@ -5,8 +5,7 @@
  */
 package isolette_monitor;
 
-import monitor.TemperatureMonitor;
-import regulate.TemperatureRegulator;
+import application.OperatorInterface;
 
 /**
  *
@@ -142,8 +141,6 @@ public class frm_main extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel8.getAccessibleContext().setAccessibleName("Displayed Temperature:");
-
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lbl_MonitorStatus.setText("-");
@@ -257,7 +254,7 @@ public class frm_main extends javax.swing.JFrame {
                 .addComponent(lbl_feltTemp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,7 +284,7 @@ public class frm_main extends javax.swing.JFrame {
                     .addComponent(jLabel17)
                     .addComponent(jLabel1)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -317,15 +314,15 @@ public class frm_main extends javax.swing.JFrame {
         {
             OpInterface = new OperatorInterface();
             
-            lbl_MonitorStatus.setText(OpInterface.MonitorState.toString());
-            lbl_alarm.setText(OpInterface.AlarmState.toString());
-            lbl_regStatus.setText(OpInterface.RegulatorState.toString());
+            lbl_MonitorStatus.setText(OpInterface.GetMonitorState());
+            lbl_alarm.setText(OpInterface.GetAlarmState());
+            lbl_regStatus.setText(OpInterface.GetRegulatorState());
             
-            spnr_minTemp.setValue(OpInterface.MinDesiredTemp);
-            spnr_maxTemp.setValue(OpInterface.MaxDesiredTemp);
-            spnr_minAlarmTemp.setValue(OpInterface.MinAlarmTemp);
-            spnr_maxAlarmTemp.setValue(OpInterface.MaxAlarmTemp);
-
+            spnr_minTemp.setValue(OpInterface.GetMinDesiredTemp());
+            spnr_maxTemp.setValue(OpInterface.GetMaxDesiredTemp());
+            spnr_minAlarmTemp.setValue(OpInterface.GetMinAlarmTemp());
+            spnr_maxAlarmTemp.setValue(OpInterface.GetMaxAlarmTemp());
+            lbl_displayedTemp.setText(String.valueOf(OpInterface.GetCurrentTemp()));
         }
         
         else
@@ -338,6 +335,7 @@ public class frm_main extends javax.swing.JFrame {
             spnr_maxTemp.setValue(0);
             spnr_minAlarmTemp.setValue(0);
             spnr_maxAlarmTemp.setValue(0);
+            lbl_displayedTemp.setText(String.valueOf(0));
         }
               
     }//GEN-LAST:event_ckbx_powerItemStateChanged
