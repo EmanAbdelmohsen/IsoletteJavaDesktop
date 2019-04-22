@@ -28,10 +28,6 @@ public class ManageInterface {
 		return status;
 	}
 	
-	public String getInterfaceStatus() {
-		return this.getStatus().getValue();
-	}
-	
 	/**
 	 * Implements requirements MRI-3 & MMI-2
 	 * @return
@@ -76,20 +72,23 @@ public class ManageInterface {
 	}
 
 	public void setTempRange(int[] tempRange) {
-		hasTempRangeChanged(tempRange);
-		this.tempRange = tempRange;
+		if (hasTempRangeChanged(tempRange)) {
+			this.tempRange = tempRange;
+		}
 	}
 
 	/**
-	 * This method is designed to kick off internal changes in state on account of a temperature rate change.
+	 * This method is designed to monitor internal changes in temperature state for the interface to avoid uneeded 
+	 * temperature range state changes.
 	 * @param tempRange
 	 */
-	private void hasTempRangeChanged(int[] tempRange) {
-		if (this.getTempRange() != null && !this.getTempRange().equals(tempRange)) {
-			this.setTempRangeChanged(true);
+	private boolean hasTempRangeChanged(int[] newTempRange) {
+		if (this.getTempRange() == null || !this.getTempRange().equals(newTempRange)) {
+			setTempRangeChanged(true);
 		}else {
-			this.setTempRangeChanged(false);
+			setTempRangeChanged(false);
 		}
+		return isTempRangeChanged();
 	}
 
 	/**

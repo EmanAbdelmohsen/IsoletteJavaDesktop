@@ -4,6 +4,13 @@ import application.Constants.StatusEnum;
 import application.ManageControlInterface;
 import application.ThermostatFunction;
 
+/**
+ * This class implements the Temperature Monitoring function of the Thermostat and reports back the status of the function
+ * upon conclusion of each round.
+ * @author calgiles3
+ *
+ */
+
 public class TemperatureMonitor extends ThermostatFunction {
 	private ManageControlInterface manageAlarm;
 	private ManageInterface monitorInterface;
@@ -14,16 +21,6 @@ public class TemperatureMonitor extends ThermostatFunction {
 		monitorInterface = new ManageInterface();
 		manageAlarm = new ManageAlarm();
 	}
-	
-	//Broken out execution of a round for timeout testing.
-	public StatusEnum executeRound() {
-		mode.executeRound();
-		return monitorInterface.getStatus();
-	}
-	
-//	public boolean getCurrentMoitorInterfaceFailure() {
-//		return monitorInterface.getInterfaceFailure();
-//	}
 	
 	@Override
 	public StatusEnum executeRound(double temperature) {

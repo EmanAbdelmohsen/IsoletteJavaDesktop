@@ -1,20 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package isolette_monitor;
 
 import application.OperatorInterface;
+import com.sun.corba.se.impl.util.RepositoryId;
+import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-/**
- *
- * @author Rehab Abdelmohsen
- */
+/*
+* The main frame is the Isolette GUI that presents all the required information that the system actor (nurse) needs to know.
+* The GUI allows the system actor to configure the Isolette and the Thermostat. 
+*/
 public class frm_main extends javax.swing.JFrame {
 
     OperatorInterface OpInterface;
-    
+    String error = "";
     /**
      * Creates new form frm_main
      */
@@ -35,33 +35,45 @@ public class frm_main extends javax.swing.JFrame {
         chkbx_infantIn = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        spnr_minTemp = new javax.swing.JSpinner();
-        spnr_maxTemp = new javax.swing.JSpinner();
+        spnr_minTempF = new javax.swing.JSpinner();
+        spnr_maxTempF = new javax.swing.JSpinner();
         jLabel5 = new javax.swing.JLabel();
         lbl_maxTemp = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         lbl_regStatus = new javax.swing.JLabel();
-        lbl_displayedTemp = new javax.swing.JLabel();
+        lbl_displayedTempF = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        lbl_heatControl = new javax.swing.JLabel();
+        lbl_minTempC = new javax.swing.JLabel();
+        lbl_maxTempC = new javax.swing.JLabel();
+        lbl_desiredTempC = new javax.swing.JLabel();
+        lbl_displayedTempC = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         lbl_MonitorStatus = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        spnr_maxAlarmTemp = new javax.swing.JSpinner();
+        spnr_maxAlarmTempF = new javax.swing.JSpinner();
         jLabel11 = new javax.swing.JLabel();
-        spnr_minAlarmTemp = new javax.swing.JSpinner();
+        spnr_minAlarmTempF = new javax.swing.JSpinner();
         lbl_alarm = new javax.swing.JLabel();
+        lbl_minAlarmTempC = new javax.swing.JLabel();
+        lbl_maxAlarmTempC = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        btn_setTempRange = new javax.swing.JButton();
+        lbl_errorMsg = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
-        lbl_feltTemp = new javax.swing.JLabel();
+        lbl_feltTempF = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        lbl_TempFeltC = new javax.swing.JLabel();
+        lbl_feltTempC = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,6 +85,11 @@ public class frm_main extends javax.swing.JFrame {
         });
 
         chkbx_infantIn.setText("Infant in Isolette");
+        chkbx_infantIn.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chkbx_infantInItemStateChanged(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -88,9 +105,13 @@ public class frm_main extends javax.swing.JFrame {
 
         lbl_regStatus.setText("-");
 
-        lbl_displayedTemp.setText("0 ");
+        lbl_displayedTempF.setText("0 ");
 
         jLabel6.setText("(◦F)");
+
+        jLabel10.setText("Heat Control:");
+
+        lbl_heatControl.setText("-");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -102,21 +123,30 @@ public class frm_main extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(lbl_maxTemp)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel8))
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel10))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_heatControl)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lbl_displayedTemp)
+                        .addComponent(lbl_displayedTempF)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jLabel6))
+                    .addComponent(lbl_regStatus)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(spnr_minTempF)
+                            .addComponent(spnr_maxTempF)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(51, 51, 51)
+                                .addComponent(lbl_displayedTempC)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lbl_desiredTempC, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(spnr_minTemp)
-                                .addComponent(spnr_maxTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lbl_regStatus))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(lbl_minTempC, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_maxTempC, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,21 +154,31 @@ public class frm_main extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(spnr_minTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spnr_minTempF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_minTempC))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_maxTemp)
-                    .addComponent(spnr_maxTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(spnr_maxTempF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_maxTempC))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_desiredTempC)
+                    .addComponent(lbl_displayedTempC))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(lbl_regStatus))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(lbl_displayedTemp)
+                    .addComponent(lbl_displayedTempF)
                     .addComponent(jLabel6))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(lbl_heatControl))
+                .addContainerGap())
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -167,13 +207,16 @@ public class frm_main extends javax.swing.JFrame {
                     .addComponent(jLabel13)
                     .addComponent(jLabel14))
                 .addGap(30, 30, 30)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(spnr_maxAlarmTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(spnr_minAlarmTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lbl_MonitorStatus)
-                    .addComponent(lbl_alarm))
-                .addContainerGap(11, Short.MAX_VALUE))
+                    .addComponent(lbl_alarm)
+                    .addComponent(spnr_minAlarmTempF, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
+                    .addComponent(spnr_maxAlarmTempF))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_minAlarmTempC, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_maxAlarmTempC, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,11 +224,13 @@ public class frm_main extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(spnr_minAlarmTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spnr_minAlarmTempF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_minAlarmTempC))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(spnr_maxAlarmTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spnr_maxAlarmTempF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_maxAlarmTempC))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
@@ -201,18 +246,32 @@ public class frm_main extends javax.swing.JFrame {
 
         jLabel3.setText("Monitor");
 
+        btn_setTempRange.setText("Configure");
+        btn_setTempRange.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_setTempRangeMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lbl_errorMsg)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_setTempRange))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,10 +280,14 @@ public class frm_main extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_setTempRange)
+                    .addComponent(lbl_errorMsg))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -239,7 +302,7 @@ public class frm_main extends javax.swing.JFrame {
 
         jLabel18.setText("Temperature Felt:");
 
-        lbl_feltTemp.setText("0 ");
+        lbl_feltTempF.setText("0 ");
 
         jLabel9.setText("(◦F)");
 
@@ -251,9 +314,13 @@ public class frm_main extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addComponent(jLabel18)
                 .addGap(97, 97, 97)
-                .addComponent(lbl_feltTemp)
+                .addComponent(lbl_feltTempF)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
+                .addGap(18, 18, 18)
+                .addComponent(lbl_feltTempC)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbl_TempFeltC, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -262,8 +329,10 @@ public class frm_main extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
-                    .addComponent(lbl_feltTemp)
-                    .addComponent(jLabel9))
+                    .addComponent(lbl_feltTempF)
+                    .addComponent(jLabel9)
+                    .addComponent(lbl_TempFeltC)
+                    .addComponent(lbl_feltTempC))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -298,49 +367,186 @@ public class frm_main extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(1, 1, 1)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(23, 23, 23)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void ckbx_powerItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckbx_powerItemStateChanged
+        error = "";
         if(evt.getStateChange() == 1)
         {
-            OpInterface = new OperatorInterface();
+            OpInterface = new OperatorInterface();      //initialized readings           
+            ExecuteInitializationRounds();
+                
+            /* print converted temperature in Celsius
+            lbl_feltTempC.setText("(0 ◦C)");
+            lbl_displayedTempC.setText(ConvertFahrToCelsius(OpInterface.GetDisplayedTemp()));
+            lbl_minTempC.setText(ConvertFahrToCelsius(OpInterface.GetMinDesiredTemp()));
+            lbl_maxTempC.setText(ConvertFahrToCelsius(OpInterface.GetMaxDesiredTemp()));
+            lbl_minAlarmTempC.setText(ConvertFahrToCelsius(OpInterface.GetMinAlarmTemp()));
+            lbl_maxAlarmTempC.setText(ConvertFahrToCelsius(OpInterface.GetMaxAlarmTemp()));*/    
+        }
+        
+        //Isolette is powered off
+        else SetTheNonState();           
+    }//GEN-LAST:event_ckbx_powerItemStateChanged
+
+    /*
+    * Save the DisredTemperatureRange
+    */
+    private void btn_setTempRangeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_setTempRangeMouseClicked
+        error = "";
+        if(!ckbx_power.isSelected())
+        {
+            error = "Please Power on the Isolette";
+            lbl_errorMsg.setText(error);
+            lbl_errorMsg.setForeground(Color.red);
+            System.out.println("Error: " + error);   
+            return;
+        }
+        
+        int minTemp = (Integer)spnr_minTempF.getValue(); 
+        int maxTemp = (Integer)spnr_maxTempF.getValue();
+        int minAlarmTemp = (Integer)spnr_minAlarmTempF.getValue();
+        int maxAlarmTemp = (Integer)spnr_maxAlarmTempF.getValue();
+        
+        ExecuteRounds(minTemp, maxTemp, minAlarmTemp, maxAlarmTemp);
+    }//GEN-LAST:event_btn_setTempRangeMouseClicked
+
+    private void chkbx_infantInItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chkbx_infantInItemStateChanged
+        error = "";
+        if(!ckbx_power.isSelected())
+        {
+            error = "Please Power on the Isolette";
+            lbl_errorMsg.setText(error);
+            lbl_errorMsg.setForeground(Color.red);
+            System.out.println("Error: " + error);   
+            return;
+        }
+        
+        lbl_feltTempF.setText(OpInterface.GetDisplayedTemp());
+    }//GEN-LAST:event_chkbx_infantInItemStateChanged
+    
+    
+    /*
+    * Executes rounds sequentially
+    */
+    void ExecuteInitializationRounds()
+    {
+        for(int i = 0; i < 12001; i++)
+        {
+            OpInterface.OperateThermostat();
             
-            lbl_MonitorStatus.setText(OpInterface.GetMonitorState());
-            lbl_alarm.setText(OpInterface.GetAlarmState());
-            lbl_regStatus.setText(OpInterface.GetRegulatorState());
-            
-            spnr_minTemp.setValue(OpInterface.GetMinDesiredTemp());
-            spnr_maxTemp.setValue(OpInterface.GetMaxDesiredTemp());
-            spnr_minAlarmTemp.setValue(OpInterface.GetMinAlarmTemp());
-            spnr_maxAlarmTemp.setValue(OpInterface.GetMaxAlarmTemp());
-            lbl_displayedTemp.setText(String.valueOf(OpInterface.GetCurrentTemp()));
+            //for test purposes
+            System.out.println("\n \nRound No. " + i+1);
+            System.out.println("Status of the Temp Regulator: " + OpInterface.GetRegulatorState());
+            System.out.println("Status of the Temp Monitor: " + OpInterface.GetMonitorState());
+            System.out.println("Alarm: " + OpInterface.GetAlarmState());
+        }
+                    
+        PrintReadingsFromThermostat(OpInterface);
+    }
+    
+    void ExecuteRounds(int minTemp, int maxTemp, int minAlarmTemp, int maxAlarmTemp)
+    {
+        String error = OpInterface.execute_round(minTemp, maxTemp, minAlarmTemp, maxAlarmTemp);
+        
+        if(error == "")
+        {
+            int maxIteration = 0;
+
+            if(OpInterface.GetCurrentTemp() > maxTemp)
+            {
+                maxIteration = (int)OpInterface.GetCurrentTemp() - maxTemp + 1;
+            }
+            else if (OpInterface.GetCurrentTemp() < minTemp)
+            {
+                maxIteration = minTemp - (int)OpInterface.GetCurrentTemp() + 1;
+            }
+
+            for(int i = 0; i < maxIteration*600; i++)
+            {
+                error = OpInterface.execute_round(minTemp, maxTemp, minAlarmTemp, maxAlarmTemp);
+
+                //for test purposes
+                System.out.println("\n \nRound No. " + i+1);
+                System.out.println("Status of the Temp Regulator: " + OpInterface.GetRegulatorState());
+                System.out.println("Status of the Temp Monitor: " + OpInterface.GetMonitorState());
+                System.out.println("Alarm: " + OpInterface.GetAlarmState());
+            }
+
+            PrintReadingsFromThermostat(OpInterface);
         }
         
         else
         {
-            lbl_MonitorStatus.setText("-");
-            lbl_alarm.setText("-");
-            lbl_regStatus.setText("-");
-            
-            spnr_minTemp.setValue(0);
-            spnr_maxTemp.setValue(0);
-            spnr_minAlarmTemp.setValue(0);
-            spnr_maxAlarmTemp.setValue(0);
-            lbl_displayedTemp.setText(String.valueOf(0));
+            lbl_errorMsg.setText(error);
+            lbl_errorMsg.setForeground(Color.red);
+            System.out.println("Error: " + error);   
         }
-              
-    }//GEN-LAST:event_ckbx_powerItemStateChanged
+    }
+    
+    /*
+    * The non-state occurs when the Isolette is powered off
+    */
+    void SetTheNonState()
+    {
+        lbl_MonitorStatus.setText("-");
+        lbl_alarm.setText("-");
+        lbl_heatControl.setText("-");
+        lbl_regStatus.setText("-");
+        lbl_feltTempC.setText("");  
+        lbl_displayedTempC.setText("");
+        lbl_minTempC.setText("");
+        lbl_maxTempC.setText("");
+        lbl_minAlarmTempC.setText("");
+        lbl_maxAlarmTempC.setText("");
 
-    /**
+        spnr_minTempF.setValue(0);
+        spnr_maxTempF.setValue(0);
+        spnr_minAlarmTempF.setValue(0);
+        spnr_maxAlarmTempF.setValue(0);
+        lbl_displayedTempF.setText(String.valueOf(0));
+    }
+      
+    /*
+    * This method sets the GUI controls with the required readings coming from the thermostat
+    */
+    void PrintReadingsFromThermostat(OperatorInterface opInterface)
+    {
+        lbl_MonitorStatus.setText(OpInterface.GetMonitorState());
+        lbl_alarm.setText(OpInterface.GetAlarmState());
+        if(OpInterface.GetAlarmState() == "On") lbl_alarm.setForeground(Color.red);
+        lbl_regStatus.setText(OpInterface.GetRegulatorState());
+        lbl_heatControl.setText(OpInterface.GetHeatControl());
+
+        spnr_minTempF.setValue(OpInterface.GetMinDesiredTemp());
+        spnr_maxTempF.setValue(OpInterface.GetMaxDesiredTemp());
+        spnr_minAlarmTempF.setValue(OpInterface.GetMinAlarmTemp());
+        spnr_maxAlarmTempF.setValue(OpInterface.GetMaxAlarmTemp());
+        lbl_displayedTempF.setText(String.valueOf(OpInterface.GetDisplayedTemp()));
+    }
+    
+   /*Fehrinhiet to Celsius Temperature Converter*/
+    String ConvertFahrToCelsius(int tempF)
+    {
+        return "(" + String.valueOf(((tempF - 32)*5)/9) + " ◦C)";
+    }
+    
+    
+    
+    
+    
+    
+    
+      /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -375,10 +581,13 @@ public class frm_main extends javax.swing.JFrame {
         });
     }
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_setTempRange;
     private javax.swing.JCheckBox chkbx_infantIn;
     private javax.swing.JCheckBox ckbx_power;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -398,14 +607,24 @@ public class frm_main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lbl_MonitorStatus;
+    private javax.swing.JLabel lbl_TempFeltC;
     private javax.swing.JLabel lbl_alarm;
-    private javax.swing.JLabel lbl_displayedTemp;
-    private javax.swing.JLabel lbl_feltTemp;
+    private javax.swing.JLabel lbl_desiredTempC;
+    private javax.swing.JLabel lbl_displayedTempC;
+    private javax.swing.JLabel lbl_displayedTempF;
+    private javax.swing.JLabel lbl_errorMsg;
+    private javax.swing.JLabel lbl_feltTempC;
+    private javax.swing.JLabel lbl_feltTempF;
+    private javax.swing.JLabel lbl_heatControl;
+    private javax.swing.JLabel lbl_maxAlarmTempC;
     private javax.swing.JLabel lbl_maxTemp;
+    private javax.swing.JLabel lbl_maxTempC;
+    private javax.swing.JLabel lbl_minAlarmTempC;
+    private javax.swing.JLabel lbl_minTempC;
     private javax.swing.JLabel lbl_regStatus;
-    private javax.swing.JSpinner spnr_maxAlarmTemp;
-    private javax.swing.JSpinner spnr_maxTemp;
-    private javax.swing.JSpinner spnr_minAlarmTemp;
-    private javax.swing.JSpinner spnr_minTemp;
+    private javax.swing.JSpinner spnr_maxAlarmTempF;
+    private javax.swing.JSpinner spnr_maxTempF;
+    private javax.swing.JSpinner spnr_minAlarmTempF;
+    private javax.swing.JSpinner spnr_minTempF;
     // End of variables declaration//GEN-END:variables
 }

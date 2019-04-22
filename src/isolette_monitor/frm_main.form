@@ -40,7 +40,7 @@
                   <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
                   <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -55,12 +55,12 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-              <Component id="jPanel1" max="32767" attributes="0"/>
-              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -78,6 +78,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Infant in Isolette"/>
       </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="chkbx_infantInItemStateChanged"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
@@ -93,13 +96,23 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="lbl_errorMsg" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btn_setTempRange" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jPanel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jPanel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -110,10 +123,15 @@
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="btn_setTempRange" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbl_errorMsg" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -139,26 +157,36 @@
                           <Component id="lbl_maxTemp" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="lbl_displayedTemp" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbl_heatControl" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="lbl_displayedTempF" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="spnr_minTemp" max="32767" attributes="0"/>
-                                      <Component id="spnr_maxTemp" min="-2" pref="117" max="-2" attributes="0"/>
+                          <Component id="lbl_regStatus" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="spnr_minTempF" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="spnr_maxTempF" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+                                      <Component id="lbl_displayedTempC" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="lbl_desiredTempC" min="-2" pref="15" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="lbl_regStatus" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbl_minTempC" min="-2" pref="15" max="-2" attributes="0"/>
+                                  <Component id="lbl_maxTempC" min="-2" pref="15" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
+                      <EmptySpace pref="101" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -168,14 +196,21 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="spnr_minTemp" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="spnr_minTempF" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbl_minTempC" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lbl_maxTemp" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="spnr_maxTemp" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="spnr_maxTempF" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbl_maxTempC" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lbl_desiredTempC" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbl_displayedTempC" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lbl_regStatus" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -183,18 +218,23 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbl_displayedTemp" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbl_displayedTempF" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbl_heatControl" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JSpinner" name="spnr_minTemp">
+            <Component class="javax.swing.JSpinner" name="spnr_minTempF">
             </Component>
-            <Component class="javax.swing.JSpinner" name="spnr_maxTemp">
+            <Component class="javax.swing.JSpinner" name="spnr_maxTempF">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
@@ -221,7 +261,7 @@
                 <Property name="text" type="java.lang.String" value="-"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lbl_displayedTemp">
+            <Component class="javax.swing.JLabel" name="lbl_displayedTempF">
               <Properties>
                 <Property name="text" type="java.lang.String" value="0 "/>
               </Properties>
@@ -230,6 +270,24 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="(&#x25e6;F)"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel10">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Heat Control:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbl_heatControl">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="-"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbl_minTempC">
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbl_maxTempC">
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbl_desiredTempC">
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbl_displayedTempC">
             </Component>
           </SubComponents>
         </Container>
@@ -254,15 +312,18 @@
                           <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="spnr_maxAlarmTemp" min="-2" pref="117" max="-2" attributes="0"/>
-                              <Component id="spnr_minAlarmTemp" min="-2" pref="117" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="lbl_MonitorStatus" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lbl_alarm" min="-2" max="-2" attributes="0"/>
+                          <Component id="spnr_minAlarmTempF" alignment="0" pref="81" max="32767" attributes="0"/>
+                          <Component id="spnr_maxAlarmTempF" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="11" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lbl_minAlarmTempC" min="-2" pref="15" max="-2" attributes="0"/>
+                          <Component id="lbl_maxAlarmTempC" min="-2" pref="15" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="89" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -272,12 +333,14 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="spnr_minAlarmTemp" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="spnr_minAlarmTempF" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbl_minAlarmTempC" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="spnr_maxAlarmTemp" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="spnr_maxAlarmTempF" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbl_maxAlarmTempC" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -315,19 +378,23 @@
                 <Property name="text" type="java.lang.String" value="Status:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JSpinner" name="spnr_maxAlarmTemp">
+            <Component class="javax.swing.JSpinner" name="spnr_maxAlarmTempF">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel11">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Minimum Alarm Temperature (&#x25e6;F)"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JSpinner" name="spnr_minAlarmTemp">
+            <Component class="javax.swing.JSpinner" name="spnr_minAlarmTempF">
             </Component>
             <Component class="javax.swing.JLabel" name="lbl_alarm">
               <Properties>
                 <Property name="text" type="java.lang.String" value="-"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbl_minAlarmTempC">
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbl_maxAlarmTempC">
             </Component>
           </SubComponents>
         </Container>
@@ -340,6 +407,16 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Monitor"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btn_setTempRange">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Configure"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_setTempRangeMouseClicked"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbl_errorMsg">
         </Component>
       </SubComponents>
     </Container>
@@ -377,9 +454,13 @@
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
-                  <Component id="lbl_feltTemp" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbl_feltTempF" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <Component id="lbl_feltTempC" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lbl_TempFeltC" min="-2" pref="15" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -390,8 +471,10 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbl_feltTemp" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbl_feltTempF" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbl_TempFeltC" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbl_feltTempC" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -404,7 +487,7 @@
             <Property name="text" type="java.lang.String" value="Temperature Felt:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lbl_feltTemp">
+        <Component class="javax.swing.JLabel" name="lbl_feltTempF">
           <Properties>
             <Property name="text" type="java.lang.String" value="0 "/>
           </Properties>
@@ -413,6 +496,10 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="(&#x25e6;F)"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbl_TempFeltC">
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbl_feltTempC">
         </Component>
       </SubComponents>
     </Container>

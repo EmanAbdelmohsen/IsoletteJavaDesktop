@@ -18,10 +18,6 @@ public class ManageMode {
 		elapsedRoundsForTimeout = 0;
 		setStatus(StatusEnum.INIT);
 	}
-	
-	public void executeRound() {
-		elapsedRoundsForTimeout++;
-	}
 
 	public StatusEnum executeRound(boolean interfaceFailure, boolean internalFailure, double temperature) {
 		switch(getStatus()) {
@@ -31,7 +27,6 @@ public class ManageMode {
 					setStatus(StatusEnum.NORMAL);
 					elapsedRoundsForTimeout = 0;
 				}
-				
 				if (elapsedRoundsForTimeout > 1.0) {;
 					setStatus(StatusEnum.FAILED);;
 				}

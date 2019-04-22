@@ -1,5 +1,10 @@
 package application;
 
+/**
+ * Class used to encapsulate all the critical Thermostat constant values
+ * @author calgiles3
+ *
+ */
 public class Constants {
 
 	public static final double ROUND = 0.1;
@@ -25,23 +30,4 @@ public class Constants {
 			this.value = value;
 		}
 	}
-
-	public static enum AlarmStateEnum {
-                On("on"),
-		OFF("off");
-		
-		private String value;
-		
-		private AlarmStateEnum(String value) {
-			this.setValue(value);
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		private void setValue(String value) {
-			this.value = value;
-		}
-        }
 }

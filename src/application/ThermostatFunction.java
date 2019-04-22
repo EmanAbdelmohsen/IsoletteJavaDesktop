@@ -2,6 +2,12 @@ package application;
 
 import application.Constants.StatusEnum;
 
+/**
+ * This is the base level class designed to abstract the primary functions of the regulator and monitor functions.
+ * Each of these functions have to define the type of DetectFailure object when instantiated.
+ * @author calgiles3
+ *
+ */
 public abstract class ThermostatFunction {
 	private int minTemp;
 	private int maxTemp;

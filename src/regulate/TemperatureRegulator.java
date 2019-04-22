@@ -4,6 +4,13 @@ import application.Constants.StatusEnum;
 import application.ManageControlInterface;
 import application.ThermostatFunction;
 
+/**
+ * This class implements the Temperature Regulator function of the Thermostat and reports back the status of the function
+ * upon conclusion of each round.
+ * @author calgiles3
+ *
+ */
+
 public class TemperatureRegulator extends ThermostatFunction{
 	private ManageControlInterface manageHeatSource;
 	private ManageRegulatorInterface regulatorInterface;
@@ -15,18 +22,6 @@ public class TemperatureRegulator extends ThermostatFunction{
 		regulatorInterface = new ManageRegulatorInterface();
 		manageHeatSource = new ManageHeatSource();
 	}
-	
-	public void setRegulatorInterfaceTempRange(int minTemp, int maxTemp) {
-		int[] tempRange = {minTemp, maxTemp};
-		regulatorInterface.setTempRange(tempRange);
-	}
-	
-	//Broken out execution of a round for timeout testing.
-	public StatusEnum executeRound() {
-		mode.executeRound();
-		return regulatorInterface.getStatus();
-	}
-
 	
 	@Override
 	public StatusEnum executeRound(double temperature) {
