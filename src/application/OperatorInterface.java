@@ -50,9 +50,17 @@ public class OperatorInterface {
     public void OperateThermostat()
     {
         Thermostat.executeRound(currentTemp);
-        if(currentTemp > MaxDesiredTemp)DecrementCurrentTemp();
-        if(currentTemp < MinDesiredTemp) IncrementCurrentTemp();
+        //if(currentTemp > (double)MaxDesiredTemp)DecrementCurrentTemp();
+        /*if(currentTemp <= (double)MinDesiredTemp)*/ IncrementCurrentTemp();
+        
+        AlarmState = SetAlarmState(Thermostat.getAlarmControl());
+        MonitorState = Thermostat.getMonitorStatus();
+        RegulatorState = Thermostat.getRegulatorStatus();      
+        HeatControl = SetHeatControl(Thermostat.getHeatControl());
+        
         System.out.println("current temperature reading from sensor:" + currentTemp);
+        //System.out.println("current temperature reading from sensor:" + Thermostat.getDisplayTemperature());
+
     }
     
     public String execute_round(int minTemp, int maxTemp, int minAlarmTemp, int maxAlarmTemp)

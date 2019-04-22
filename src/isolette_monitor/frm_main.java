@@ -74,6 +74,8 @@ public class frm_main extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         lbl_TempFeltC = new javax.swing.JLabel();
         lbl_feltTempC = new javax.swing.JLabel();
+        lbl_thermostatOp = new javax.swing.JLabel();
+        btn_TestEx = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -336,6 +338,13 @@ public class frm_main extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        btn_TestEx.setText("Test Exception Case");
+        btn_TestEx.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_TestExMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -344,22 +353,32 @@ public class frm_main extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ckbx_power)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(99, 99, 99)
+                        .addComponent(lbl_thermostatOp))
                     .addComponent(chkbx_infantIn))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel1)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel1)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btn_TestEx)
+                        .addGap(19, 19, 19))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_thermostatOp))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ckbx_power)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -372,6 +391,8 @@ public class frm_main extends javax.swing.JFrame {
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_TestEx)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -380,22 +401,36 @@ public class frm_main extends javax.swing.JFrame {
 
     private void ckbx_powerItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ckbx_powerItemStateChanged
         error = "";
+        lbl_errorMsg.setText(error);
+        
         if(evt.getStateChange() == 1)
         {
-            OpInterface = new OperatorInterface();      //initialized readings           
-            ExecuteInitializationRounds();
+            OpInterface = new OperatorInterface();      //initialized readings  
+            
+            System.out.println("Status of the Temp Regulator: " + OpInterface.GetRegulatorState());
+            System.out.println("Status of the Temp Monitor: " + OpInterface.GetMonitorState());
+            System.out.println("Alarm: " + OpInterface.GetAlarmState());
                 
-            /* print converted temperature in Celsius
-            lbl_feltTempC.setText("(0 ◦C)");
-            lbl_displayedTempC.setText(ConvertFahrToCelsius(OpInterface.GetDisplayedTemp()));
-            lbl_minTempC.setText(ConvertFahrToCelsius(OpInterface.GetMinDesiredTemp()));
-            lbl_maxTempC.setText(ConvertFahrToCelsius(OpInterface.GetMaxDesiredTemp()));
-            lbl_minAlarmTempC.setText(ConvertFahrToCelsius(OpInterface.GetMinAlarmTemp()));
-            lbl_maxAlarmTempC.setText(ConvertFahrToCelsius(OpInterface.GetMaxAlarmTemp()));*/    
-        }
+            ExecuteInitialRounds();
+        }      
         
         //Isolette is powered off
-        else SetTheNonState();           
+        else 
+        {
+            //can't turn off if there is an infant
+            if(chkbx_infantIn.isSelected())
+            {
+                error = "Cannot turn Isolette off when the infant is in.";
+                lbl_errorMsg.setText(error);
+                lbl_errorMsg.setForeground(Color.red);
+                System.out.println("Error: " + error);  
+                
+                ckbx_power.setSelected(false);
+                return;
+            }
+            
+            SetTheNonState();
+        }           
     }//GEN-LAST:event_ckbx_powerItemStateChanged
 
     /*
@@ -403,6 +438,8 @@ public class frm_main extends javax.swing.JFrame {
     */
     private void btn_setTempRangeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_setTempRangeMouseClicked
         error = "";
+        lbl_errorMsg.setText(error);
+        
         if(!ckbx_power.isSelected())
         {
             error = "Please Power on the Isolette";
@@ -422,36 +459,96 @@ public class frm_main extends javax.swing.JFrame {
 
     private void chkbx_infantInItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chkbx_infantInItemStateChanged
         error = "";
+        lbl_errorMsg.setText(error);
+        
+        //can't place infant unless the Isolette is powered
         if(!ckbx_power.isSelected())
         {
             error = "Please Power on the Isolette";
             lbl_errorMsg.setText(error);
             lbl_errorMsg.setForeground(Color.red);
-            System.out.println("Error: " + error);   
+            System.out.println("Error: " + error); 
+            chkbx_infantIn.setSelected(false);
+            
             return;
         }
         
         lbl_feltTempF.setText(OpInterface.GetDisplayedTemp());
     }//GEN-LAST:event_chkbx_infantInItemStateChanged
+
+    //For testing pupose only - to test the exception case where the current temperature is not within the desired temperature range
+    private void btn_TestExMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_TestExMouseClicked
+        int minTemp = (Integer)spnr_minTempF.getValue(); 
+        int maxTemp = (Integer)spnr_maxTempF.getValue();
+        int minAlarmTemp = (Integer)spnr_minAlarmTempF.getValue();
+        int maxAlarmTemp = (Integer)spnr_maxAlarmTempF.getValue();
+        
+        String error = OpInterface.execute_round(minTemp, maxTemp, minAlarmTemp, maxAlarmTemp);
+        
+        if(error == "")
+        {
+            int maxIteration = 0;
+
+            if(OpInterface.GetCurrentTemp() > maxTemp)
+            {
+                maxIteration = (int)OpInterface.GetCurrentTemp() - maxTemp + 1;
+            }
+            else if (OpInterface.GetCurrentTemp() < minTemp)
+            {
+                maxIteration = minTemp - (int)OpInterface.GetCurrentTemp() + 1;
+            }
+
+            for(int i = 0; i < maxIteration*1800; i++)
+            {
+                String info = "Please wait while the Isolette is heating..";
+                lbl_thermostatOp.setText(info);
+                lbl_thermostatOp.setForeground(Color.red);
+            
+                OpInterface.execute_round(minTemp, maxTemp, minAlarmTemp, maxAlarmTemp);
+
+                //for test purposes
+                System.out.println("\n \nRound No. " + i+1);
+                System.out.println("Status of the Temp Regulator: " + OpInterface.GetRegulatorState());
+                System.out.println("Status of the Temp Monitor: " + OpInterface.GetMonitorState());
+                System.out.println("Alarm: " + OpInterface.GetAlarmState());
+            }
+
+            PrintReadingsFromThermostat(OpInterface);
+            lbl_thermostatOp.setText("");
+        }
+        
+        else
+        {
+            lbl_errorMsg.setText(error);
+            lbl_errorMsg.setForeground(Color.red);
+            System.out.println("Error: " + error);   
+        }
+    }//GEN-LAST:event_btn_TestExMouseClicked
     
     
     /*
     * Executes rounds sequentially
     */
-    void ExecuteInitializationRounds()
+    void ExecuteInitialRounds()
     {
-        for(int i = 0; i < 12001; i++)
+        for(int i = 0; i < 12601; i++)
         {
+            String info = "Please wait while the Isolette is heating..";
+            lbl_thermostatOp.setText(info);
+            lbl_thermostatOp.setForeground(Color.red);
+             
             OpInterface.OperateThermostat();
             
             //for test purposes
-            System.out.println("\n \nRound No. " + i+1);
+            System.out.println("Round No. " + i+1);
             System.out.println("Status of the Temp Regulator: " + OpInterface.GetRegulatorState());
             System.out.println("Status of the Temp Monitor: " + OpInterface.GetMonitorState());
+            System.out.println("Heat: " + OpInterface.GetHeatControl());
             System.out.println("Alarm: " + OpInterface.GetAlarmState());
         }
                     
         PrintReadingsFromThermostat(OpInterface);
+        lbl_thermostatOp.setText("");
     }
     
     void ExecuteRounds(int minTemp, int maxTemp, int minAlarmTemp, int maxAlarmTemp)
@@ -473,7 +570,11 @@ public class frm_main extends javax.swing.JFrame {
 
             for(int i = 0; i < maxIteration*600; i++)
             {
-                error = OpInterface.execute_round(minTemp, maxTemp, minAlarmTemp, maxAlarmTemp);
+                String info = "Please wait while the Isolette is heating..";
+                lbl_thermostatOp.setText(info);
+                lbl_thermostatOp.setForeground(Color.red);
+            
+                OpInterface.execute_round(minTemp, maxTemp, minAlarmTemp, maxAlarmTemp);
 
                 //for test purposes
                 System.out.println("\n \nRound No. " + i+1);
@@ -483,6 +584,7 @@ public class frm_main extends javax.swing.JFrame {
             }
 
             PrintReadingsFromThermostat(OpInterface);
+            lbl_thermostatOp.setText("");
         }
         
         else
@@ -534,12 +636,6 @@ public class frm_main extends javax.swing.JFrame {
         lbl_displayedTempF.setText(String.valueOf(OpInterface.GetDisplayedTemp()));
     }
     
-   /*Fehrinhiet to Celsius Temperature Converter*/
-    String ConvertFahrToCelsius(int tempF)
-    {
-        return "(" + String.valueOf(((tempF - 32)*5)/9) + " ◦C)";
-    }
-    
     
     
     
@@ -583,6 +679,7 @@ public class frm_main extends javax.swing.JFrame {
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_TestEx;
     private javax.swing.JButton btn_setTempRange;
     private javax.swing.JCheckBox chkbx_infantIn;
     private javax.swing.JCheckBox ckbx_power;
@@ -622,6 +719,7 @@ public class frm_main extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_minAlarmTempC;
     private javax.swing.JLabel lbl_minTempC;
     private javax.swing.JLabel lbl_regStatus;
+    private javax.swing.JLabel lbl_thermostatOp;
     private javax.swing.JSpinner spnr_maxAlarmTempF;
     private javax.swing.JSpinner spnr_maxTempF;
     private javax.swing.JSpinner spnr_minAlarmTempF;
